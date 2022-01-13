@@ -1,4 +1,5 @@
 #include "deck.h"
+#include <cstdlib>
 
 Deck::Deck()
 {
@@ -15,7 +16,18 @@ card Deck::get_one_card()
 
 void Deck::reset_deck_and_shuffle()
 {
+    m_cards.clear();
+    create_all_cards();
 
+    for(int i=0; i<1000; i++)
+    {
+        int index_1 = std::rand()%52;
+        int index_2 = std::rand()%52;
+
+        card tmp = m_cards[index_1];
+        m_cards[index_1]=m_cards[index_2];
+        m_cards[index_2]=tmp;
+    }
 }
 
 bool Deck::is_empty()
