@@ -5,7 +5,15 @@ CONFIG -= qt
 
 SOURCES += \
         deck.cpp \
-        main.cpp
+        main.cpp \
+        model.cpp \
+        view.cpp
 
 HEADERS += \
-    deck.h
+    deck.h \
+    general_types.h \
+    model.h \
+    view.h
+
+DISTFILES += \
+    sequence
