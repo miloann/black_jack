@@ -9,10 +9,23 @@ enum class menu
     exit
 };
 
+enum class next_turn
+{
+    player_get_new_card= 0,
+    player_stand,
+    exit,
+};
+
 enum class player_type
 {
    human=0,
    computer
+};
+
+enum class playing
+{
+    player_in_the_game = 0,
+    player_stand,
 };
 
 struct Player
@@ -20,6 +33,7 @@ struct Player
     int points;
     std::vector<card> cards;
     player_type type;
+    playing play_type;
 };
 
 enum class game_status

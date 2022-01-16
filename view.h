@@ -9,7 +9,7 @@ class View
 public:
     View();
     menu display_menu();
-    void display_turn(Status_of_game game_status);
+    next_turn display_turn(Status_of_game game_status);
 
 private:
     std::string display_cards( std::vector<card> cards);
