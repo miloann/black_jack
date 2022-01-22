@@ -2,8 +2,6 @@
 #define VIEW_H
 #include "general_types.h"
 
-
-
 class View
 {
 public:
@@ -13,6 +11,8 @@ public:
 
 private:
     std::string display_cards( std::vector<card> cards);
+    next_turn display_turn_two_players(Status_of_game game_status);
+    next_turn display_turn_computer(Status_of_game game_status);
 
 };
 

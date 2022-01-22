@@ -20,6 +20,11 @@ menu View::display_menu()
 
 next_turn View::display_turn(Status_of_game game_status)
 {
+    return display_turn_two_players(game_status);
+}
+
+next_turn View::display_turn_two_players(Status_of_game game_status)
+{
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "Player 1: " << std::endl;
     std::cout << display_cards(game_status.player_1.cards) << std::endl;

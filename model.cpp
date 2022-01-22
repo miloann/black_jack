@@ -1,4 +1,5 @@
 #include "model.h"
+#include <iostream>
 
 Model::Model()
 {
@@ -24,7 +25,7 @@ Status_of_game Model::start_new_game(menu user_choice)
     {
         m_player_2.type = player_type::computer;
     }
-
+    
     m_player_1.cards.push_back(m_deck.get_one_card());
     m_player_1.cards.push_back(m_deck.get_one_card());
 
@@ -55,6 +56,10 @@ Status_of_game Model::start_new_game(menu user_choice)
     {
         status.status = game_status::player_1_turn;
     }
+
+    m_whose_turn = player_turn::player_1_turn;
+    m_player_1.play_type = playing::player_in_the_game;
+    m_player_2.play_type = playing::player_in_the_game;
 
     return status;
 }
@@ -88,3 +93,85 @@ void Model::update_points(Player &player)
         }
     }
 }
+
+Status_of_game Model::start_next_turn(next_turn next)
+{
+    Player& player_in_game = m_whose_turn==player_turn::player_1_turn ? m_player_1 : m_player_2;
+
+    switch (next)
+    {
+    case next_turn::player_get_new_card:
+        player_in_game.play_type = playing::player_in_the_game;
+        player_in_game.cards.push_back(m_deck.get_one_card());
+        update_points(player_in_game);
+        if(player_in_game.points == 21)
+        {
+            player_in_game.play_type = playing::player_stand;
+        }
+        break;
+
+    case next_turn::player_stand:
+        player_in_game.play_type = playing::player_stand;
+        break;
+
+    default:
+        player_in_game.play_type = playing::player_stand; // never happend
+    }
+
+    Status_of_game status;
+    status.player_1 = m_player_1;
+    status.player_2 = m_player_2;
+
+    if(m_player_1.points > 21)
+    {
+        status.status = game_status::player_2_won;
+    }
+    else if(m_player_2.points > 21)
+    {
+        status.status = game_status::player_1_won;
+    }
+    else if(m_player_1.play_type == playing::player_stand && m_player_2.play_type == playing::player_stand)
+    {
+        if(m_player_1.points > m_player_2.points)
+        {
+            status.status = game_status::player_1_won;
+        }
+        else if (m_player_1.points == m_player_2.points)
+        {
+            status.status = game_status::draw;
+        }
+        else
+        {
+            status.status = game_status::player_2_won;
+        }
+    }
+    else if(m_player_1.play_type == playing::player_stand && m_player_2.play_type == playing::player_in_the_game)
+    {
+        m_whose_turn = player_turn::player_2_turn;
+        status.status = game_status::player_2_turn;
+    }
+    else if(m_player_1.play_type == playing::player_in_the_game && m_player_2.play_type == playing::player_stand)
+    {
+        m_whose_turn = player_turn::player_1_turn;
+        status.status = game_status::player_1_turn;
+    }
+    else if(m_player_1.play_type == playing::player_in_the_game && m_player_2.play_type == playing::player_in_the_game)
+    {
+        if(m_whose_turn==player_turn::player_1_turn )
+        {
+            m_whose_turn = player_turn::player_2_turn;
+            status.status = game_status::player_2_turn;
+        }
+        else
+        {
+            m_whose_turn = player_turn::player_1_turn;
+            status.status = game_status::player_1_turn;
+        }
+    }
+
+    return status;
+}
+
+
+
+

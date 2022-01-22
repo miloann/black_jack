@@ -20,7 +20,14 @@ int main()
     Status_of_game status;
     status =  game_model.start_new_game(x);
 
-    game_view.display_turn(status);
+    next_turn next;
+    next = game_view.display_turn(status);
+
+    while(next != next_turn::exit)
+    {
+        status = game_model.start_next_turn(next);
+        next = game_view.display_turn(status);
+    }
 
     return 0;
 }
