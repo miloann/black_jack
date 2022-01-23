@@ -9,7 +9,6 @@ View::View()
 
 menu View::display_menu()
 {
-    system("CLS");
     std::cout << "[0]   Play game for 2 players" << std::endl;
     std::cout << "[1]   Play game with computer" << std::endl;
     std::cout << "[2]   Exit" << std::endl;
@@ -84,7 +83,7 @@ next_turn View::display_turn_computer(Status_of_game game_status)
 {
     if(game_status.player_1.play_type == playing::player_in_the_game)
     {
-    system("CLS");
+        system("CLS");
     }
 
     std::cout << "-------------------------------------------" << std::endl;
