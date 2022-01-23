@@ -18,10 +18,17 @@ menu View::display_menu()
     return static_cast<menu>(player_choice);
 }
 
-next_turn View::display_turn(Status_of_game game_status, menu user_choice)
+next_turn View::display_turn(Status_of_game game_status)
 {
     next_turn next;
-    next = user_choice == menu::new_game_2_players ? display_turn_two_players(game_status) : display_turn_computer(game_status);
+    if(game_status.player_2.type == player_type::human)
+    {
+        next = display_turn_two_players(game_status);
+    }
+    else
+    {
+        next = display_turn_computer(game_status);
+    }
     return next;
 }
 

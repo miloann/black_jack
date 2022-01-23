@@ -94,10 +94,17 @@ void Model::update_points(Player &player)
     }
 }
 
-Status_of_game Model::start_next_turn(next_turn next, menu user_choice)
+Status_of_game Model::start_next_turn(next_turn next)
 {
     Status_of_game status;
-    status = user_choice == menu::new_game_2_players ? start_next_turn_two_players(next) : start_next_turn_computer(next);
+    if(m_player_2.type == player_type::human)
+    {
+        status = start_next_turn_two_players(next);
+    }
+    else
+    {
+        status = start_next_turn_computer(next);
+    }
     return status;
 }
 
