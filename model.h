@@ -25,6 +25,7 @@ private:
     player_turn m_whose_turn;
     Status_of_game start_next_turn_two_players(next_turn next);
     Status_of_game start_next_turn_computer(next_turn next);
+    void reset_game();
 };
 
 

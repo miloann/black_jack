@@ -3,16 +3,13 @@
 
 Model::Model()
 {
-    m_player_1.points = 0;
-    m_player_2.points = 0;
-    m_player_1.type = player_type::human;
-    m_player_2.type = player_type::human;
-    m_deck.reset_deck_and_shuffle();
+    reset_game();
 }
 
 
 Status_of_game Model::start_new_game(menu user_choice)
 {
+    reset_game();
     if(user_choice == menu::exit)
     {
        // to do: implement exit
@@ -247,6 +244,17 @@ Status_of_game Model::start_next_turn_computer(next_turn next)
         status.status = game_status::player_1_turn;
     }
     return status;
+}
+
+void Model::reset_game()
+{
+    m_player_1.points = 0;
+    m_player_2.points = 0;
+    m_player_1.type = player_type::human;
+    m_player_2.type = player_type::human;
+    m_deck.reset_deck_and_shuffle();
+    m_player_1.cards.clear();
+    m_player_2.cards.clear();
 }
 
 

@@ -13,6 +13,7 @@ private:
     std::string display_cards( std::vector<card> cards);
     next_turn display_turn_two_players(Status_of_game game_status);
     next_turn display_turn_computer(Status_of_game game_status);
+    void display_points (Status_of_game game_status);
 
 };
 

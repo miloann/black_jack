@@ -4,14 +4,14 @@
 
 enum class menu
 {
-    new_game_2_players = 0,
+    new_game_2_players = 1,
     new_game_with_computer,
     exit
 };
 
 enum class next_turn
 {
-    player_get_new_card= 0,
+    player_get_new_card= 1,
     player_stand,
     exit,
 };
