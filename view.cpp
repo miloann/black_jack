@@ -18,13 +18,16 @@ menu View::display_menu()
     return static_cast<menu>(player_choice);
 }
 
-next_turn View::display_turn(Status_of_game game_status)
+next_turn View::display_turn(Status_of_game game_status, menu user_choice)
 {
-    return display_turn_two_players(game_status);
+    next_turn next;
+    next = user_choice == menu::new_game_2_players ? display_turn_two_players(game_status) : display_turn_computer(game_status);
+    return next;
 }
 
 next_turn View::display_turn_two_players(Status_of_game game_status)
 {
+    system("CLS");
     std::cout << "-------------------------------------------" << std::endl;
     std::cout << "Player 1: " << std::endl;
     std::cout << display_cards(game_status.player_1.cards) << std::endl;
@@ -63,6 +66,73 @@ next_turn View::display_turn_two_players(Status_of_game game_status)
         std::cout << "[1] No" << std::endl;
         int player_choice_2;
         std::cin >> player_choice_2;
+        return static_cast<next_turn>(player_choice_2);
+
+    default:
+        return next_turn::exit;
+    }
+}
+
+next_turn View::display_turn_computer(Status_of_game game_status)
+{
+    if(game_status.player_1.play_type == playing::player_in_the_game)
+    {
+    system("CLS");
+    }
+
+    std::cout << "-------------------------------------------" << std::endl;
+    std::cout << "Player 1: " << std::endl;
+    std::cout << display_cards(game_status.player_1.cards) << std::endl;
+    std::cout << "Total points: " << game_status.player_1.points << std::endl << std:: endl;
+    std::cout << "Player 2: " << std::endl;
+    std::cout << display_cards(game_status.player_2.cards) << std::endl;
+    std::cout << "Total points: " << game_status.player_2.points <<std::endl << std::endl;
+
+    switch(game_status.status)
+    {
+    case game_status::draw:
+        std::cout << "DRAW! \nThe end of the game" << std::endl;
+        return next_turn::exit;
+
+    case game_status::player_1_won:
+        std::cout << "Player 1 won! \nThe end of the game" << std::endl;
+        return next_turn::exit;
+
+    case game_status::player_2_won:
+        std::cout << "Player 2 won! \nThe end of the game" << std::endl;
+        return next_turn::exit;
+
+    case game_status::player_1_turn:
+        std::cout << "Next turn! Do you want to get new card?" << std::endl;
+        std::cout << "[0] Yes" << std::endl;
+        std::cout << "[1] No" << std::endl;
+        int player_choice_1;
+        std::cin >> player_choice_1;
+        return static_cast<next_turn>(player_choice_1);
+
+    case game_status::player_2_turn:
+        std::cout << "Computer next turn" << std::endl;
+        int player_choice_2;
+        if((game_status.player_2.points >= 18 && game_status.player_2.points <= 21) && (game_status.player_1.points = game_status.player_2.points) )
+        {
+            // draw better than risking a loss
+            std::cout << "Player 1: " << std::endl;
+            std::cout << display_cards(game_status.player_1.cards) << std::endl;
+            std::cout << "Total points: " << game_status.player_1.points << std::endl << std:: endl;
+            std::cout << "Player 2: " << std::endl;
+            std::cout << display_cards(game_status.player_2.cards) << std::endl;
+            std::cout << "Total points: " << game_status.player_2.points <<std::endl << std::endl;
+            std::cout << "DRAW! \nThe end of the game" << std::endl;
+            return next_turn::exit;
+        }
+        else if(game_status.player_1.points > game_status.player_2.points)
+        {
+            player_choice_2 = 0;
+        }
+        else
+        {
+            player_choice_2 = 1;
+        }
         return static_cast<next_turn>(player_choice_2);
 
     default:

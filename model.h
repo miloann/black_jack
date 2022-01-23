@@ -16,13 +16,15 @@ public:
     Model();
     Status_of_game start_new_game(menu user_choice);
     void update_points(Player& player);
-    Status_of_game start_next_turn(next_turn next);
+    Status_of_game start_next_turn(next_turn next, menu user_choice);
 
 private:
     Player m_player_1;
     Player m_player_2;
     Deck m_deck;
     player_turn m_whose_turn;
+    Status_of_game start_next_turn_two_players(next_turn next);
+    Status_of_game start_next_turn_computer(next_turn next);
 };
 
 

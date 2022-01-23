@@ -21,12 +21,12 @@ int main()
     status =  game_model.start_new_game(x);
 
     next_turn next;
-    next = game_view.display_turn(status);
+    next = game_view.display_turn(status,x);
 
     while(next != next_turn::exit)
     {
-        status = game_model.start_next_turn(next);
-        next = game_view.display_turn(status);
+        status = game_model.start_next_turn(next,x);
+        next = game_view.display_turn(status,x);
     }
 
     return 0;
