@@ -12,7 +12,7 @@ Status_of_game Model::start_new_game(menu user_choice)
     reset_game();
     if(user_choice == menu::exit)
     {
-       // to do: implement exit
+       // handelt bei controller (main)
     }
     else if(user_choice == menu::new_game_2_players)
     {
